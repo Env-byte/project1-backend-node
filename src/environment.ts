@@ -26,7 +26,11 @@ const envs: IEnvironment = {
         host: result.parsed.DATABASE_HOST,
         port: result.parsed.DATABASE_PORT,
         password: result.parsed.DATABASE_PASSWORD,
-        searchPath: result.parsed.DATABASE_SEARCH_PATH
+        searchPath: result.parsed.DATABASE_SEARCH_PATH,
+        errorDetail: result.parsed.DATABASE_ERROR_DETAIL
+    },
+    riot: {
+        apiKey: result.parsed.RIOT_API_KEY
     }
 };
 

@@ -1,22 +1,22 @@
-import express, {Application} from 'express';
+import express from 'express';
 import envs from "./environment";
 
 // import the routes
-import testRoute from "./routes/test";
-import swaggerRoute from "./routes/swagger";
+import SummonerRoute from "./routes/summonerRoute";
+import SwaggerRoute from "./routes/swaggerRoute";
 
 const https = require('https');
-const app: Application = express();
+const app = express();
 
 const server = https.createServer({key: envs.ssl.key, cert: envs.ssl.cert}, app);
 
 app.use(express.json());
 
 //add routes
-let routes = [testRoute]
+let routes = [SummonerRoute]
 if (envs.isDev) {
     //if dev use swagger
-    routes.push(swaggerRoute);
+    routes.push(SwaggerRoute);
 }
 app.use('/', routes);
 

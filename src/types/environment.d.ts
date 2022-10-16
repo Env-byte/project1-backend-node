@@ -15,6 +15,11 @@ interface IEnvDatabase {
     name: string
     port: number
     searchPath: string
+    errorDetail: boolean
+}
+
+interface IEnvRiot {
+    apiKey: string
 }
 
 export interface IEnvironment {
@@ -23,5 +28,6 @@ export interface IEnvironment {
     isDev: boolean
     project: IEnvProject
     database: IEnvDatabase
+    riot: IEnvRiot
 }
 
