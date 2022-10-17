@@ -1,0 +1,17 @@
+id = c2838cba-6886-4330-941c-419d5769dd77
+
+[relations]
+
+[relations.collections]
+rootDirectory = postman/collections
+files[] = {"id":"23636126-dbec0096-4e77-4871-817a-4995242ee8f3","path":"Summoner Collection.json","metaData":{}}
+
+[relations.collections.metaData]
+
+[relations.apiDefinition]
+rootDirectory = postman/schemas
+files[] = {"path":"index.yaml","metaData":{}}
+
+[relations.apiDefinition.metaData]
+type = openapi:3
+rootFiles[] = index.yaml
