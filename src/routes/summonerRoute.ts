@@ -1,46 +1,28 @@
-import express from "express";
+import express, {Response} from 'express';
+import {Request} from "express-serve-static-core";
+
 import {SummonerController} from "../modules/summoner/summonerController";
 import SummonerProvider from "../modules/summoner/summonerProvider";
 import SummonerRepository from "../modules/summoner/summonerRepository";
 import db from "../db";
+import FetchWrapper from "../fetchWrapper";
+
+const GetController = (req: Request) => {
+    const region = req.region;
+    const fetch = new FetchWrapper();
+    return new SummonerController({
+        provider: new SummonerProvider({region, fetch}),
+        repository: new SummonerRepository({db, region}),
+    });
+}
 
 const router = express.Router();
-/**
- * @openapi
- * /summoner/name/:name:
- *   get:
- *    summary: Get By Name using db or provider
- *    tags:
- *      - Summoner
- *    responses:
- *      200:
- *          description: Returns a mysterious string.
- */
-router.get("/summoner/name/:name", (req, res, next) => {
-    const controller = new SummonerController({
-        provider: new SummonerProvider(),
-        repository: new SummonerRepository(db)
-    });
-    controller.Name(req, res, next)
+
+router.get("/summoner/name/:name", (req, res: Response, next) => {
+    GetController(req).Name(req, res, next)
 });
 
-
-/**
- * @openapi
- * /summoner:
- *   get:
- *     summary: Get All players in db
- *     tags:
- *      - Summoner
- *     responses:
- *       200:
- *         description: Returns a mysterious string.
- */
-router.get("/summoner/", (req, res, next) => {
-    const controller = new SummonerController({
-        provider: new SummonerProvider(),
-        repository: new SummonerRepository(db)
-    });
-    controller.All(req, res, next)
+router.get("/summoner/", (req: Request, res, next) => {
+    GetController(req).Name(req, res, next)
 })
 export default router

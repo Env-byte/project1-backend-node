@@ -16,15 +16,18 @@ export class SummonerController {
     }
 
     public Name(req: Request, res: Response, next: NextFunction) {
-        this.summonerService.GetByName(req.params.name).then((summoner) => {
-            res.status(200).json(summoner);
-        });
+        this.summonerService
+            .GetByName(req.params.name)
+            .then((resWrapper) => {
+                res.status(200).json(resWrapper);
+            });
     }
 
     public All(req: Request, res: Response, next: NextFunction) {
-        this.summonerService.GetAll()
-            .then((summoners) => {
-                res.status(200).json(summoners);
+        this.summonerService
+            .GetAll()
+            .then((resWrapper) => {
+                res.status(200).json(resWrapper);
             })
     }
 }

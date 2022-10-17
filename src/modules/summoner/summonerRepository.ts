@@ -1,12 +1,18 @@
 import {Pool} from "pg";
 import {ISummoner} from "../../types/Summoner/summoner";
 import Summoner from "./types/summoner";
+import {IRegion} from "../../types/Region";
+
+interface SummonerRepositoryDeps {
+    db: Pool
+    region: IRegion
+}
 
 class SummonerRepository {
     private db;
 
-    constructor(db: Pool) {
-        this.db = db
+    constructor(deps: SummonerRepositoryDeps) {
+        this.db = deps.db
     }
 
     public async GetByName(name: string) {

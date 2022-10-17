@@ -9,8 +9,10 @@ const https = require('https');
 const app = express();
 
 const server = https.createServer({key: envs.ssl.key, cert: envs.ssl.cert}, app);
-
 app.use(express.json());
+
+//add middleware
+app.use('/api/', RegionMiddleware);
 
 //add routes
 let routes = [SummonerRoute]
@@ -20,6 +22,8 @@ if (envs.isDev) {
 }
 app.use('/', routes);
 
+// add custom error handler middleware as the last middleware
+app.use(ErrorHandlerMiddleware);
 //start listening on port
 server.listen(envs.port, () => {
     console.log(`Server Running here 👉 https://localhost:${envs.port}${envs.isDev ? '/docs' : ''}`);

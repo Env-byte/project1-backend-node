@@ -1,42 +1,32 @@
-class FetchWrapper {
+import envs from "./environment";
 
+class FetchWrapper {
     //called on every request
-    private getHeader(data?: HeaderData) {
+    private getHeader() {
         let headers = new Headers();
         headers.append('accept', '*/*');
-        headers.append('Api-Token', (data?.token) ?? "");
-        headers.append('Region', (data?.region) ?? "");
-        headers.append('Content-Type', (data?.contentType) ?? 'application/x-www-form-urlencoded');
+        headers.append("X-Riot-Token", envs.riot.apiKey);
         return headers
     }
 
-    public async get<TResponseBody>(request: string, data?: HeaderData): Promise<TResponseBody> {
-        return this.execFetch(this.ApiPrefix + request, {
+    public async get<TResponseBody>(request: string): Promise<TResponseBody> {
+        return this.execFetch<TResponseBody>(request, {
             method: 'GET',
-            headers: this.getHeader(data),
+            headers: this.getHeader(),
         });
     }
 
     private async execFetch<T>(url: string, init?: RequestInit): Promise<T> {
-
         const response = await fetch(url, init);
         if (!response.ok) {
-            return new Promise((resolve, reject) => {
-                response
-                    .text()
-                    .then(text => {
-                        reject(text);
-                    })
-            })
+            const error = await response.text();
+            throw new Error(error);
         }
-        return response.json()
+        return await response.json() as T
     }
 }
 
+export default FetchWrapper;
 
-interface HeaderData {
-    region?: string,
-    token?: string,
-    contentType?: string
-}
+
 
