@@ -4,6 +4,8 @@ import envs from "./environment";
 // import the routes
 import SummonerRoute from "./routes/summonerRoute";
 import SwaggerRoute from "./routes/swaggerRoute";
+import RegionMiddleware from "./middleware/regionMiddleware";
+import ErrorHandlerMiddleware from "./middleware/errorHandlerMiddleware";
 
 const https = require('https');
 const app = express();

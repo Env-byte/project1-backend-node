@@ -1,7 +1,5 @@
 import SummonerRepository from "./summonerRepository";
 import SummonerProvider from "./summonerProvider";
-import Summoner from "./types/summoner";
-import {Response} from "../../models/response.model";
 
 class SummonerService {
     private repository;
@@ -16,7 +14,7 @@ class SummonerService {
         name = name.replace(" ", "");
 
         let summoner = await this.repository.GetByName(name);
-        if (summoner != null) return new Response(summoner, 'Database');
+        if (summoner != null) return summoner;
 
         summoner = await this.provider.GetByName(name);
         if (summoner === null) {
@@ -24,12 +22,11 @@ class SummonerService {
         }
 
         this.repository.Insert(summoner);
-        return new Response(summoner, 'Riot API');
+        return summoner;
     }
 
     public async GetAll() {
-        const summoners = await this.repository.GetAll();
-        return new Response(summoners, 'Database');
+        return await this.repository.GetAll();
     }
 }
 

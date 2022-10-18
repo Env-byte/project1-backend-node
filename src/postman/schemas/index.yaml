@@ -1,0 +1,102 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Project 1 Backend'
+  description: 'API which feeds date into the frontend.'
+
+paths:
+  /api/summoner/name/{name}:
+    parameters:
+      - name: name
+        description: The name of the Summoner
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/SummonerName'
+      - name: Region
+        description: The region to make the API call on
+        in: header
+        required: true
+        schema:
+          $ref: '#/components/schemas/RegionHeader'
+    get:
+      summary: Get a Summoner from either the Riot API or Database
+      responses:
+        '200':
+          description: The Summoner corresponding to the provided `SummonerName`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Summoner'
+        404:
+          description: No Summoner found for the provided `name`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    SummonerName:
+      description: The name of a Summoner
+      type: string
+    SummonerPuuid:
+      description: The Summoner Unique id
+      type: string
+    Summoner:
+      type: object
+      required:
+        - id
+        - accountId
+        - puuid
+        - name
+        - profileIconId
+        - revisionDate
+        - summonerLevel
+        - iconUrl
+        - lastUpdate
+      properties:
+        id:
+          type: string
+        accountId:
+          type: string
+        puuid:
+          $ref: '#/components/schemas/SummonerPuuid'
+        name:
+          $ref: '#/components/schemas/SummonerName'
+        profileIconId:
+          type: number
+        revisionDate:
+          type: number
+        summonerLevel:
+          type: number
+        iconUrl:
+          type: string
+        lastUpdate:
+          type: string
+    Error:
+      type: object
+      required:
+        - message
+        - status
+        - additionalInfo
+      properties:
+        message:
+          description: A human readable error message
+          type: string
+        status:
+          description: The HTTP status code
+          type: number
+        additionalInfo:
+          type: object
+    RegionHeader:
+      type: string
+      enum:
+        - EUW1
+        - EUN1
+        - NA1

@@ -1,22 +1,18 @@
 import * as core from "express-serve-static-core";
 import express from "express";
 import swaggerUi from "swagger-ui-express";
-import swaggerJsdoc from "swagger-jsdoc";
-import envs from "../environment";
-
+import fs from "fs";
+const YAML = require('yamljs');
 const router: core.Router = express.Router();
-const options = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: envs.project.name,
-            version: envs.project.version,
-        },
-    },
-    apis: ['./src/routes/*.ts'], // files containing annotations as above
-};
-const openapiSpecification = swaggerJsdoc(options);
+const path = '../../postman/schemas/index.yaml';
+let yaml;
+if (fs.existsSync(path)) {
+    yaml = fs.readFileSync(path);
+    const swaggerDocument = YAML.parse(path);
+    console.log(swaggerDocument)
+    router.use('/docs', swaggerUi.serve);
+    router.get('/docs', swaggerUi.setup(swaggerDocument));
+}
 
-router.use('/docs', swaggerUi.serve);
-router.get('/docs', swaggerUi.setup(openapiSpecification));
 export default router; // export to use in server.js
+
