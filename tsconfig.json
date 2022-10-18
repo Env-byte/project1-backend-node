@@ -2,16 +2,11 @@
   "ts-node": {
     "files": true
   },
-  "files": [
-    "src/index.ts",
-    "src/types/express.d.ts"
-  ],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
     "typeRoots": [
       "node_modules/@types",
       "node_modules/express",
-      "src/types"
     ],
     /* Projects */
     // "incremental": true,                              /* Save .tsbuildinfo files to allow for incremental compilation of projects. */

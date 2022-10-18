@@ -7,7 +7,6 @@ import db from "../db";
 import FetchWrapper from "../fetchWrapper";
 
 const GetController = (req: Request) => {
-    // @ts-ignore false error
     const region = req.region;
     const fetch = new FetchWrapper();
     return new SummonerController({

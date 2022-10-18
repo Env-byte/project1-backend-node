@@ -37,5 +37,4 @@ describe('Testing summoner routes', function () {
                 done();
             });
     });
-
 });
