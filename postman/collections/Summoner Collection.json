@@ -1,16 +1,16 @@
 {
 	"info": {
-		"_postman_id": "dbec0096-4e77-4871-817a-4995242ee8f3",
+		"_postman_id": "6508ebe4-e812-4e32-a0c1-a525b64a87fb",
 		"name": "Summoner Collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_uid": "23636126-dbec0096-4e77-4871-817a-4995242ee8f3"
+		"_uid": "23636126-6508ebe4-e812-4e32-a0c1-a525b64a87fb"
 	},
 	"item": [],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "8bdcdebd-d2fa-4e38-b8c8-e8f3256126a7",
+				"id": "e2889241-9296-404e-861c-bb5f97f0a6a4",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -20,7 +20,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "cb991c46-7763-428c-aba2-4f305622a2c1",
+				"id": "d6b23499-52de-471c-9d9c-aba603b36d8b",
 				"type": "text/javascript",
 				"exec": [
 					""
