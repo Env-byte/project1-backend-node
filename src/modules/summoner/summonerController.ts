@@ -1,11 +1,11 @@
 import {NextFunction, Request, Response} from 'express';
 import SummonerService from "./summonerService";
 import SummonerRepository from "./summonerRepository";
-import SummonerProvider from "./summonerProvider";
+import {ISummonerProvider} from "./summonerProvider";
 
 interface ISummonerControllerDeps {
     repository: SummonerRepository
-    provider: SummonerProvider
+    provider: ISummonerProvider
 }
 
 export class SummonerController {
@@ -20,7 +20,11 @@ export class SummonerController {
             .GetByName(req.params.name)
             .then((resWrapper) => {
                 res.status(200).json(resWrapper);
-            });
+            })
+            //need to do next with the error to catch async errors
+            .catch(error => (
+                next(error)
+            ));
     }
 
     public All(req: Request, res: Response, next: NextFunction) {
@@ -29,5 +33,9 @@ export class SummonerController {
             .then((resWrapper) => {
                 res.status(200).json(resWrapper);
             })
+            //need to do next with the error to catch async errors
+            .catch(error => (
+                next(error)
+            ));
     }
 }

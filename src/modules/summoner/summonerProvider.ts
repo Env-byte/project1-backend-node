@@ -1,14 +1,17 @@
 import Summoner from "./types/summoner";
 import {IRegion} from "../../types/Region";
 import FetchWrapper from "../../fetchWrapper";
-import {ISummoner} from "../../types/Summoner/summoner";
+
+export interface ISummonerProvider {
+    GetByName: (name: string) => Promise<Summoner>
+}
 
 interface SummonerProviderDeps {
     region: IRegion;
     fetch: FetchWrapper
 }
 
-class SummonerProvider {
+class SummonerProvider implements ISummonerProvider {
     private region;
     private fetch;
     private readonly endpoint = "/tft/summoner/v1/summoners";

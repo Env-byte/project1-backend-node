@@ -10,13 +10,15 @@ interface SummonerRepositoryDeps {
 
 class SummonerRepository {
     private db;
+    private region;
 
     constructor(deps: SummonerRepositoryDeps) {
         this.db = deps.db
+        this.region = deps.region
     }
 
     public async GetByName(name: string) {
-        const {rows} = await this.db.query<ISummoner, [string]>(`
+        const {rows} = await this.db.query<ISummoner, [string, string]>(`
             SELECT id,
                    account_id,
                    puuid,
@@ -27,9 +29,8 @@ class SummonerRepository {
                    last_update
             FROM summoners
             WHERE lower(replace(name, ' ', '')) = lower($1)
-              AND region =@ region
-        `, [name]);
-
+              AND region=$2
+        `, [name, this.region.region]);
         if (rows.length === 0) {
             return null;
         }

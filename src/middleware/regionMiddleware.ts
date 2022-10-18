@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from 'express';
-import {TPlatformRegion, TRegion, TRegionRoute} from "../types/Region";
+import {IRegion, TPlatformRegion, TRegion, TRegionRoute} from "../types/Region";
 
 /**
  *
@@ -14,18 +14,13 @@ function RegionMiddleware(req: Request, res: Response, next: NextFunction) {
         throw new Error(`Invalid region: ${region}. Type ${typeof region}`);
     }
 
-    const {platformRoute, regionalRoute} = GetRoutes(region as TRegion);
 
-    req.region = {
-        platformRoute: platformRoute,
-        regionalRoute: regionalRoute,
-        region: region as TRegion
-    }
+    req.region = GetRegion(region as TRegion);
 
     next();
 }
 
-function GetRoutes(region: TRegion) {
+export function GetRegion(region: TRegion): IRegion {
     let platformRoute: TPlatformRegion,
         regionalRoute: TRegionRoute;
     switch (region) {
@@ -46,7 +41,7 @@ function GetRoutes(region: TRegion) {
             throw new Error(`Region ${region} is not supported.`);
     }
 
-    return {platformRoute, regionalRoute};
+    return {platformRoute, regionalRoute, region};
 }
 
 export default RegionMiddleware;

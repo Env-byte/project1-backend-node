@@ -10,3 +10,4 @@ dist
 /httpRequests/
 .env.development
 .env
+.env.test

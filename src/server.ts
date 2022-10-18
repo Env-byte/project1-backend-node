@@ -17,17 +17,18 @@ app.use(express.json());
 app.use('/api/', RegionMiddleware);
 
 //add routes
-let routes = [SummonerRoute]
 if (envs.isDev) {
     //if dev use swagger
-    routes.push(SwaggerRoute);
+    app.use('/', SwaggerRoute);
 }
-app.use('/', routes);
+app.use('/api/', [SummonerRoute]);
 
 // add custom error handler middleware as the last middleware
 app.use(ErrorHandlerMiddleware);
 //start listening on port
+const addr = `https://localhost:${envs.port}`;
 server.listen(envs.port, () => {
-    console.log(`Server Running here 👉 https://localhost:${envs.port}${envs.isDev ? '/docs' : ''}`);
+    console.log(`Server Running here 👉 ${addr}${envs.isDev ? '/docs' : ''}`);
 })
+export default addr;
 

@@ -1,11 +1,11 @@
 import SummonerRepository from "./summonerRepository";
-import SummonerProvider from "./summonerProvider";
+import {ISummonerProvider} from "./summonerProvider";
 
 class SummonerService {
     private repository;
     private provider;
 
-    constructor(repository: SummonerRepository, provider: SummonerProvider) {
+    constructor(repository: SummonerRepository, provider: ISummonerProvider) {
         this.repository = repository;
         this.provider = provider;
     }
