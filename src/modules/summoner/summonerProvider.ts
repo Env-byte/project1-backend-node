@@ -1,5 +1,5 @@
 import Summoner from "./types/summoner";
-import {IRegion} from "../../types/Region";
+import {IRegion} from "../../types/region";
 import FetchWrapper from "../../fetchWrapper";
 
 export interface ISummonerProvider {

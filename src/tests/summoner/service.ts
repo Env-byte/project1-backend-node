@@ -9,6 +9,7 @@ import SummonerRepository from "../../modules/summoner/summonerRepository";
 import db from "../../db";
 import {GetRegion} from "../../middleware/regionMiddleware";
 import FetchWrapper from "../../fetchWrapper";
+import {NotFoundException} from "../../models/exceptions/notFoundException.model";
 
 //During the test the env variable is set to test
 
@@ -27,7 +28,7 @@ describe('Testing summoner routes', function () {
         done();
     });
 
-    it('it should GET ntenvious from provider and store in database', (done) => {
+    it('should GET ntenvious from provider and store in database', (done) => {
         service.GetByName('ntenvious').then((summoner) => {
             summoner.should.be.to.include({
                 "id": "wXHwJVrRW7_CEWt3le4t3W2djryuuROout7ecORm3d2xr_8",
@@ -40,6 +41,17 @@ describe('Testing summoner routes', function () {
 
             });
             done();
-        })
+        });
     });
+
+    it('should throw not found', (done) => {
+        service.GetByName('somereallylongnamethatdoesnotexist').then((summoner) => {
+
+        }).catch((e) => {
+            e.should.be.instanceof(NotFoundException)
+            done();
+        });
+    })
+
+
 });

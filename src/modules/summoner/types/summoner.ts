@@ -1,4 +1,4 @@
-import {ISummoner} from "../../../types/Summoner/summoner";
+import {ISummoner} from "../../../types/summoner/summoner";
 
 class Summoner {
     /**

@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from 'express';
-import {IRegion, TPlatformRegion, TRegion, TRegionRoute} from "../types/Region";
+import {IRegion, TPlatformRegion, TRegion, TRegionRoute} from "../types/region";
 
 /**
  *

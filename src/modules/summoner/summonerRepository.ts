@@ -1,7 +1,7 @@
 import {Pool} from "pg";
-import {ISummoner} from "../../types/Summoner/summoner";
+import {ISummoner} from "../../types/summoner/summoner";
 import Summoner from "./types/summoner";
-import {IRegion} from "../../types/Region";
+import {IRegion} from "../../types/region";
 
 interface SummonerRepositoryDeps {
     db: Pool
