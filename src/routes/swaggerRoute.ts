@@ -10,8 +10,6 @@ if (fs.existsSync(path)) {
     const swaggerDocument = YAML.load(path);
     router.use('/docs', swaggerUi.serve);
     router.get('/docs', swaggerUi.setup(swaggerDocument));
-} else {
-    console.log(`does not exist ${path}`)
 }
 
 export default router; // export to use in server.js

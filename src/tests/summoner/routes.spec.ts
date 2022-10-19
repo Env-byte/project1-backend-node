@@ -1,7 +1,7 @@
 //Require the dev-dependencies
 process.env.NODE_ENV = 'test';
 
-import addr from "./../../server";
+import server from "./../../server";
 import chai from "chai";
 import chaiHttp from "chai-http";
 
@@ -19,7 +19,7 @@ describe('Testing summoner routes', function () {
     });
 
     it('it should GET ntenvious from provider and store in database', (done) => {
-        chai.request(addr)
+        chai.request(server)
             .get('/api/summoner/name/ntenvious')
             .set('Region', 'EUW1')
             .end((err, res) => {
@@ -34,6 +34,18 @@ describe('Testing summoner routes', function () {
                     "revisionDate": 1665832419000,
                     "summonerLevel": 198
                 });
+                console.log('body', res.body)
+                done();
+            });
+    });
+
+    it('it should return 404 not found', (done) => {
+        chai.request(server)
+            .get('/api/summoner/name/somereallylongnamethatdoesnotexist')
+            .set('Region', 'EUW1')
+            .end((err, res) => {
+                res.should.have.status(404);
+                console.log('body', res.body)
                 done();
             });
     });

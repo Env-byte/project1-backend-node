@@ -30,5 +30,5 @@ const addr = `https://localhost:${envs.port}`;
 server.listen(envs.port, () => {
     console.log(`Server Running here 👉 ${addr}${envs.isDev ? '/docs' : ''}`);
 })
-export default addr;
+export default server;
 

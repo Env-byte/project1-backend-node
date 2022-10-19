@@ -1,0 +1,7 @@
+{
+  "nyc": {
+    "all": true,
+    "include": "src",
+    "exclude": "**/*.spec.ts"
+  }
+}
